@@ -87,4 +87,39 @@ class Scraper
 end
 ```
 
-Now let's start accessing the elements on the student page. 
+Now let's start accessing the elements on the student page. In the scraper class, I defined a method called `scrape_student_data`, and started playing around with Nokogiri and grabbing page data with `binding.pry`.
+
+```ruby
+class Scraper
+  ...
+  def scrape_student_data
+    student_page.css('.home-blog-post').each do |student_page|
+      student_hash = {}
+      binding.pry
+    end
+  end
+  ...
+end
+```
+
+Eventually I was able to grab the following elements: `name`, `page_url`, `tag_line`, and `excerpt`. The `scrape_student_data` method looks like this:
+
+```ruby
+class Scraper
+  ...
+  def scrape_student_data
+    student_page.css('.home-blog-post').each do |student_section|
+      student_hash = {}
+      student_hash[:name] = student_section.css('.big-comment a').text
+      student_hash[:page_url] = student_section.css('.blog-thumb a')[0].attr('href')
+      student_hash[:tag_line] = student_section.css('.home-blog-post-meta')[0].text
+      student_hash[:excerpt] = student_section.css('.excerpt p')[0].text
+      students << student_hash
+    end
+    students
+  end
+  ...
+end
+```
+
+

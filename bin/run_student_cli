@@ -1,0 +1,6 @@
+require_relative '../config/environment'
+
+students = []
+Scraper.new(students).scrape_student_data
+
+run(students)

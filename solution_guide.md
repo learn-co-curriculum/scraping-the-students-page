@@ -146,7 +146,9 @@ def help
 end
 ```
 
-Let's begin with the `run(students)` method.
+#### `run`
+
+Let's begin with the `run` method.
 
 ```ruby
 def run(students)
@@ -167,4 +169,173 @@ def run(students)
 end
 ```
 
-This is the backbone of the `run(students)` method. We want to output the "Welcome" banner when the CLI app is first invoked via `run`. Next we have a `while` loop that's basically taking a user input via `gets.downcase.strip`, and a `case` statement that's handling that user input, depending on whether the command is `list`, `student`, `help`, or `exit`.
+This is the backbone of the `run` method. It will take a parameter `students`, which is the students array we made earlier. We want to output the "Welcome" banner when the CLI app is first invoked via `run`. Next we have a `while` loop that's basically taking a user input via `gets.downcase.strip`, and a `case` statement that's handling that user input, depending on whether the command is `list`, `student`, `help`, or `exit`.
+
+#### `help`
+
+What are the next steps? Let's flesh out the `help` method. We want the user, upon invocation of the `run` method, to output a list of instructions on how to use the CLI commands. This would simply print out each of the possible commands, and what it does. Let's see this implemented below:
+
+```ruby
+def help
+  puts "\nWhat would you like to do?"
+  puts "The 'list' option lists all students."
+  puts "The 'student' option shows student information."
+  puts "The 'help' option shows the list of commands."
+  puts "The 'exit' option exits the program."
+end
+```
+
+Now let's apply this to the `run` method.
+
+```ruby
+def run(students)
+  puts "Welcome to the Flatiron-007 Student Page!"
+  help
+
+  command = nil
+  while command != 'exit'
+    command = gets.downcase.strip
+
+    case command
+    when 'list'
+    when 'student'
+    when 'help'
+      help
+    when 'exit'
+    else
+    end
+  end
+end
+```
+
+Any time the `help` command is the user input, it will output the instructions.
+
+#### `list`
+
+Next, the `list` method will list out all the names of the students. Remember that we've passed in the students array from the Scraper class as an argument for the `students` parameter. We want to pass that into a parameter for the `list` method, as shown below.
+
+```ruby
+def list(students)
+  students.each do |student|
+    puts "#{student[:name]}"
+  end
+  help
+end
+```
+
+This will iterate through all of the students, and output their name attribute into the command line. How will it be called in the `run method?`
+
+```ruby
+def run(students)
+  puts "Welcome to the Flatiron-007 Student Page!"
+  help
+
+  command = nil
+  while command != 'exit'
+    command = gets.downcase.strip
+
+    case command
+    when 'list'
+      puts "\n"
+      list(students)
+    when 'student'
+    when 'help'
+      help
+    when 'exit'
+    else
+    end
+  end
+end
+```
+
+The `"\n"` string will actually create a newline, which gives us a buffer between the `help` output and the `list` output.
+
+#### `student`
+
+Now let's set up the logic for finding a specific student. We need to change the `run` method to accept input for a student:
+
+```ruby
+def run(students)
+  puts "Welcome to the Flatiron-007 Student Page!"
+  help
+  command = nil
+  while command != 'exit'
+    command = gets.downcase.strip
+
+    case command
+    when 'list'
+      puts "\n"
+      list(students)
+    when 'student'
+      puts "\nPlease enter the student name:"
+      input = gets.downcase.strip
+      student(input, students)
+    when 'help'
+      help
+    when 'exit'
+    else
+    end
+  end
+end
+```
+
+And let's set up the `student` method below.
+
+```ruby
+def student(input, students)
+  students.each do |student|
+    if student[:name].downcase == input
+      puts "\nName: #{student[:name]}"
+      puts "Page URL: #{student[:page_url]}"
+      puts "Tag Line: #{student[:tag_line]}"
+      puts "Excerpt: #{student[:excerpt]}"
+      go_to_page(student)
+    end
+  end
+  help
+end
+```
+
+Notice that we have a method called `go_to_page`. This is completely optional, but I included it in there for fun. Here's the `go_to_page` method below.
+
+```ruby
+def go_to_page(student)
+  puts "Go to #{student[:name]}'s page? Enter Yes or No."
+  input = gets.downcase.chomp
+  if input == "yes"
+    system("open #{student[:page_url]}")
+  end
+end
+```
+
+#### `exit` and `else` cases
+
+Let's finish up the `run` method. When a user exits the CLI, we need to output "Goodbye!". Also, if someone enters in something other than the default inputs, we need to handle those cases by outputting the `help` dialogue.
+
+```ruby
+def run(students)
+  puts "Welcome to the Flatiron-007 Student Page!"
+  help
+  command = nil
+  while command != 'exit'
+    command = gets.downcase.strip
+
+    case command
+    when 'list'
+      puts "\n"
+      list(students)
+    when 'student'
+      puts "\nPlease enter the student name:"
+      input = gets.downcase.strip
+      student(input, students)
+    when 'help'
+      help
+    when 'exit'
+      puts "\nGoodbye!"
+    else
+      puts "\nThat's not a valid command."
+      help
+    end
+  end
+end
+```

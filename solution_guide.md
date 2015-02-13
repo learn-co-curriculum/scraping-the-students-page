@@ -339,3 +339,79 @@ def run(students)
   end
 end
 ```
+
+### lib/student.rb
+
+This was completely optional, we'll implement a basic OO class for a student. Right now, we're scraping the attributes of a student and storing them in a hash inside of the Scraper class. What we want to do is initialize a new student object, and assign each of the scraped Nokogiri attributes to the student object attributes. Let's build out the class below:
+
+```ruby
+# lib/student.rb
+class Student
+  attr_accessor :name, :page_url, :tag_line, :excerpt
+
+  def initialize(name, page_url, tag_line, excerpt)
+    @name = name
+    @page_url = page_url
+    @tag_line = tag_line
+    @excerpt = excerpt
+  end
+end
+```
+
+Now that we're going to be invoking a new student object for each student we scrape, we have to change the methods in the scraper and the student CLI to account for that. In our Scraper class, we do the following for the `scrape_student_data` method:
+
+```ruby
+# lib/scraper.rb
+def scrape_student_data
+    student_page.css('.home-blog-post').each do |student_section|
+      name = student_section.css('.big-comment a').text
+      page_url = STUDENT_URL + student_section.css('.blog-thumb a')[0].attr('href')
+      tag_line = student_section.css('.home-blog-post-meta')[0].text
+      excerpt = student_section.css('.excerpt p')[0].text
+      student = Student.new(name, page_url, tag_line, excerpt)
+      students << student
+    end
+    students
+  end
+```
+
+Noticed how we initialize a new Student object for each student?
+
+We also have to change the student invocations in the `student_cli` file.
+
+```ruby
+# lib/student_cli.rb
+def list(students)
+  students.each do |student|
+    puts "#{student.name}"
+  end
+  help
+end
+
+def student(input, students)
+  students.each do |student|
+    if student.name.downcase == input
+      puts "\nName: #{student.name}"
+      puts "Page URL: #{student.page_url}"
+      puts "Tag Line: #{student.tag_line}"
+      puts "Excerpt: #{student.excerpt}"
+      go_to_page(student)
+    end
+  end
+  help
+end
+
+def go_to_page(student)
+  puts "Go to #{student.name}'s page? Enter Yes or No."
+  input = gets.downcase.chomp
+  if input == "yes"
+    system("open #{student.page_url}")
+  end
+end
+
+def help
+  ...
+end
+```
+
+Tada! That's it for now. 

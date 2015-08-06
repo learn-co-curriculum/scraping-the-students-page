@@ -28,7 +28,7 @@ One person should fork and clone this repo, creating a team repo and then everyo
 
 #### Couple of hints...
 
-There are three components to this lab. You will need to build a command line application (just like you have done with [Guessing CLI](http://learn.flatironschool.com/lessons/3899) and [Jukebox CLI](http://learn.flatironschool.com/lessons/3896)) and a scraper that will scrape the student page for details that you feel are pertinent. Additionally, you can create a object-oriented student class if you're feeling bold!
+There are three components to this lab. You will need to build a command line application (just like you have done with [Guessing CLI](http://learn.flatironschool.com/lessons/10697) and [Jukebox CLI](http://learn.flatironschool.com/lessons/10695)) and a scraper that will scrape the student page for details that you feel are pertinent. Additionally, you can create a object-oriented student class if you're feeling bold!
 
 For the __command line__ component, you could go implement something like this...
 
@@ -80,7 +80,7 @@ How you want to approach the scraping project is _completely_ up to you, but if 
 Nokogiri is a ruby gem that is designed specifically for scraping websites.  Nokogiri will parse the infromation into XML nodes, which will allow you to move through the document by selecting nodes based on CSS selectors methods.
 
 #### This lab assumes you have done the assigned reading on Nokogiri, here are the links in case you need refeshing.
-- [Scraping Kick Starter](http://learn.flatironschool.com/lessons/3445)
+- [Scraping Kick Starter](http://learn.flatironschool.com/lessons/9892)
 - [Bastard's guide to scraping](http://ruby.bastardsbook.com/chapters/html-parsing/)
 - [Nokogiri's Documentation](http://nokogiri.org/)
 

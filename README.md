@@ -2,7 +2,7 @@
 
 ## Scraping the Students Website
 
-This lab is straightforward but free form. Scrape the [students website](http://web0715.students.flatironschool.com/) you guys deployed to.  We're looking for you and your group (the table you're sitting at) to make a command line app that is built on top a Nokogiri scraper that will be able to accept and respond to user input.  This might mean _crawling_, moving from one website to another.  That is, entering a student's name and being able to visit their profile.  What information should be available is totally up to you.  That might be a student's name.  A link to something on their profile.  Some text from a page.  Who knows?
+This lab is straightforward but free form. Scrape the [students website](http://fellows.flatironschool.com/) you guys deployed to.  We're looking for you and your group (the table you're sitting at) to make a command line app that is built on top a Nokogiri scraper that will be able to accept and respond to user input.  This might mean _crawling_, moving from one website to another.  That is, entering a student's name and being able to visit their profile.  What information should be available is totally up to you.  That might be a student's name.  A link to something on their profile.  Some text from a page.  Who knows?
 
 This lab will be more free form in that it is not test driven.  So method and variable names are up to you.  The entire structure of the program is up to you.
 

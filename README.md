@@ -105,3 +105,5 @@ gem install nokogiri -- --with-iconv-dir=/usr/local/Cellar/libiconv/1.13.1
 ```
 
 If those `brew link libiconv` fails, ask a TA for help.
+
+<a href='https://learn.co/lessons/scraping-the-students-page' data-visibility='hidden'>View this lesson on Learn.co</a>

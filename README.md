@@ -106,4 +106,4 @@ gem install nokogiri -- --with-iconv-dir=/usr/local/Cellar/libiconv/1.13.1
 
 If those `brew link libiconv` fails, ask a TA for help.
 
-<a href='https://learn.co/lessons/scraping-the-students-page' data-visibility='hidden'>View this lesson on Learn.co</a>
+<p data-visibility='hidden'>View <a href='https://learn.co/lessons/scraping-the-students-page' title='Scraping the Students Website'>Scraping the Students Website</a> on Learn.co and start learning to code for free.</p>
